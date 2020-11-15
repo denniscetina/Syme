@@ -20,20 +20,26 @@
             android:drawableLeft="@drawable/ic_usuario"
             android:hint="@string/usuario"/>
         <EditText
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_contra"
             android:hint="@string/contraseña" />
         <Button
             android:id="@+id/Iniciar"
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Iniciar Sesión"/>
+            android:text="Iniciar Sesión"
+            android:background="@color/black"
+            android:textColor="@color/white"/>
         <Button
             android:id="@+id/Registrarse"
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/black"
+            android:textColor="@color/white"
             android:text="Registrarse"/>
     </LinearLayout>
 
