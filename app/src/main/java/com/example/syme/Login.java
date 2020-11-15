@@ -13,13 +13,17 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        /*
         registrarse=findViewById(R.id.Registrarse);
         registrarse.setOnClickListener(new View.OnClickListener() {
-            @Override
+           @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),Registrarse.class);
                 startActivity(intent);
             }
+
+
         });
+        */
     }
 }
