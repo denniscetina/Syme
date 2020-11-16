@@ -13,7 +13,15 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        iniciar = findViewById(R.id.btnIniciar);
+        iniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         registrarse=findViewById(R.id.btnRegistrarse);
         registrarse.setOnClickListener(new View.OnClickListener() {
            @Override
