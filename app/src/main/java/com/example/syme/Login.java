@@ -67,6 +67,8 @@ public class Login extends AppCompatActivity {
                     startActivity(new Intent(Login.this, MainActivity.class));
                     Toast.makeText(Login.this,"Bienvenido",Toast.LENGTH_SHORT).show();
                     finish();
+                }else{
+                    Toast.makeText(Login.this,"No se pudo iniciar sesión",Toast.LENGTH_SHORT).show();
                 }
             }
         });
