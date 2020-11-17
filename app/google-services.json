@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "310921949451",
+    "firebase_url": "https://syme-cdbee.firebaseio.com",
+    "project_id": "syme-cdbee",
+    "storage_bucket": "syme-cdbee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310921949451:android:ce3f667c0fa8d4e2ed720e",
+        "android_client_info": {
+          "package_name": "com.example.syme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310921949451-o98s82k4vf307he26mv9h89jupaba7ap.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.syme",
+            "certificate_hash": "de5996ec38f8c90a505e25a79e4baec87170e8d9"
+          }
+        },
+        {
+          "client_id": "310921949451-71njepjs2fckamvdevt1fir4ub47dkf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpQL3GCCP4tPYHWMFzzVV6LKEcS4K6eug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310921949451-71njepjs2fckamvdevt1fir4ub47dkf8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

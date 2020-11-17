@@ -8,6 +8,7 @@
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     tools:context=".Registrarse">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,19 +39,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_telefono"
-            android:hint="Telefono"/>
+            android:hint="Telefono"
+            android:inputType="phone"/>
 
         <EditText
             android:id="@+id/UsuarioR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Usuario"
-            android:drawableLeft="@drawable/ic_usuario"/>
+            android:hint="@string/correo_electronico"
+            android:inputType="textEmailAddress"
+            android:drawableLeft="@drawable/ic_correo_negro"/>
 
         <EditText
             android:id="@+id/ContraseñaR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:drawableLeft="@drawable/ic_contra1"
             android:hint="Contraseña"/>
 
@@ -59,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_contra2"
+            android:inputType="textPassword"
             android:hint="Confirmar contraseña"/>
         <Button
             android:id="@+id/Registrar"

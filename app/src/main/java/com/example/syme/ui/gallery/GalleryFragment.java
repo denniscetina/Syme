@@ -10,12 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.syme.MantenimientoFragment;
 import com.example.syme.R;
 
 public class GalleryFragment extends Fragment {
@@ -27,14 +24,11 @@ public class GalleryFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel = new ViewModelProvider(this).get(GalleryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         btnmantenimiento = root.findViewById(R.id.mantenimiento);
         btnmantenimiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MantenimientoFragment mantenimientoFragment = new MantenimientoFragment();
-                fragmentTransaction.replace(R.id.contenedor,mantenimientoFragment).addToBackStack(null).commit();
+
             }
         });
         final TextView textView = root.findViewById(R.id.text_gallery);
