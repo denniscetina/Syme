@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,10 +22,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Login extends AppCompatActivity {
+    private static final String STRING_PREFERENCES_EMAIL = "emailGuardado";
+    private static final String STRING_PREFERENCES_CONTRA = "emailGuardado";
     Button registrarse,iniciar;
     TextInputEditText mEmail, mContrasenia;
     private String email="",contrasenia="";
     private FirebaseAuth mAuth;
+    Switch mantenerSesion;
+    private static final String STRING_PREFERENCES="usuarioGuardado";
+    private static final String STRING_PREFERENCES_SWITCH="switchGuardado";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +39,16 @@ public class Login extends AppCompatActivity {
         iniciar=findViewById(R.id.iniciaSes);
         mEmail=findViewById(R.id.mEmailEdit);
         mContrasenia=findViewById(R.id.mContraEdit);
+        mantenerSesion=findViewById(R.id.switchSesion);
         mAuth = FirebaseAuth.getInstance();
 
         iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // loginUser();
+                if (mantenerSesion.isEnabled()==true){
+                    Toast.makeText(Login.this,"Esta habilitado el switch.",Toast.LENGTH_LONG).show();
+                }
                 email= mEmail.getText().toString();
                 contrasenia= mContrasenia.getText().toString();
                 if(!email.isEmpty() && !contrasenia.isEmpty()){
@@ -83,12 +95,13 @@ public class Login extends AppCompatActivity {
     });
     }
 
-    public void SesionInicio(View view) {
-        email= mEmail.getText().toString();
-        contrasenia= mContrasenia.getText().toString();
-        if(email.isEmpty() && contrasenia.isEmpty()){
 
-            loginUser();
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if(mAuth.getCurrentUser() != null){
+            startActivity(new Intent(Login.this,MainActivity.class));
+            finish();
         }
     }
 }
