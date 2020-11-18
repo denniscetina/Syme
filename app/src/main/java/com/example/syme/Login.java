@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Login extends AppCompatActivity {
     Button registrarse,iniciar;
@@ -38,8 +40,25 @@ public class Login extends AppCompatActivity {
                 email= mEmail.getText().toString();
                 contrasenia= mContrasenia.getText().toString();
                 if(!email.isEmpty() && !contrasenia.isEmpty()){
+                    FirebaseMessaging.getInstance().getToken()
+                            .addOnCompleteListener(new OnCompleteListener<String>() {
+                                @Override
+                                public void onComplete(@NonNull Task<String> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.w("cd", "Fetching FCM registration token failed", task.getException());
+                                        return;
+                                    }
 
-                    loginUser();
+                                    // Get new FCM registration token
+                                    String token = task.getResult();
+
+                                    // Log and toast
+
+                                    Toast.makeText(Login.this, token, Toast.LENGTH_SHORT).show();
+                                    Log.d("Impresion", token);
+                                }
+                            });
+                    //loginUser();
                 }
             }
         });
