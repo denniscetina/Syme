@@ -24,34 +24,33 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class Login extends AppCompatActivity {
     private static final String STRING_PREFERENCES_EMAIL = "emailGuardado";
     private static final String STRING_PREFERENCES_CONTRA = "emailGuardado";
-    Button registrarse,iniciar;
+    Button registrarse, iniciar;
     TextInputEditText mEmail, mContrasenia;
-    private String email="",contrasenia="";
+    private String email = "", contrasenia = "";
     private FirebaseAuth mAuth;
     Switch mantenerSesion;
-    private static final String STRING_PREFERENCES="usuarioGuardado";
-    private static final String STRING_PREFERENCES_SWITCH="switchGuardado";
+    private static final String STRING_PREFERENCES = "usuarioGuardado";
+    private static final String STRING_PREFERENCES_SWITCH = "switchGuardado";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        iniciar=findViewById(R.id.iniciaSes);
-        mEmail=findViewById(R.id.mEmailEdit);
-        mContrasenia=findViewById(R.id.mContraEdit);
-        mantenerSesion=findViewById(R.id.switchSesion);
+        iniciar = findViewById(R.id.iniciaSes);
+        mEmail = findViewById(R.id.mEmailEdit);
+        mContrasenia = findViewById(R.id.mContraEdit);
+
         mAuth = FirebaseAuth.getInstance();
 
         iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // loginUser();
-                if (mantenerSesion.isEnabled()==true){
-                    Toast.makeText(Login.this,"Esta habilitado el switch.",Toast.LENGTH_LONG).show();
-                }
-                email= mEmail.getText().toString();
-                contrasenia= mContrasenia.getText().toString();
-                if(!email.isEmpty() && !contrasenia.isEmpty()){
+                // loginUser();
+
+                email = mEmail.getText().toString();
+                contrasenia = mContrasenia.getText().toString();
+                if (!email.isEmpty() && !contrasenia.isEmpty()) {
                     FirebaseMessaging.getInstance().getToken()
                             .addOnCompleteListener(new OnCompleteListener<String>() {
                                 @Override
@@ -79,29 +78,33 @@ public class Login extends AppCompatActivity {
 
     private void loginUser() {
 
-    mAuth.signInWithEmailAndPassword(email, contrasenia).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-        @Override
-        public void onComplete(@NonNull Task<AuthResult> task) {
-         if(task.isSuccessful()){
-             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-             startActivity(intent);
-             finish();
+        mAuth.signInWithEmailAndPassword(email, contrasenia).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
 
-         }
-         else{
-             Toast.makeText(Login.this,"No se pudo inicar sesión comprueba los datos.",Toast.LENGTH_LONG).show();
-         }
-        }
-    });
+                } else {
+                    Toast.makeText(Login.this, "No se pudo inicar sesión comprueba los datos.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-        if(mAuth.getCurrentUser() != null){
-            startActivity(new Intent(Login.this,MainActivity.class));
+
+        if (mAuth.getCurrentUser() != null) {
+
+            startActivity(new Intent(Login.this, MainActivity.class));
             finish();
+
         }
+
+
     }
 }

@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>{
+public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
     List<Producto> productos;
     Context context;
 
@@ -31,7 +31,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     @NonNull
     @Override
     public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.view_productos,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.view_productos, parent, false);
         ProductoViewHolder holder = new ProductoViewHolder(view);
         return holder;
     }
@@ -49,14 +49,15 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         return productos.size();
     }
 
-    public static class ProductoViewHolder extends  RecyclerView.ViewHolder{
-        TextView nombreP,precioP;
+    public static class ProductoViewHolder extends RecyclerView.ViewHolder {
+        TextView nombreP, precioP;
         ImageView fotoP;
+
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
-            nombreP=itemView.findViewById(R.id.nombreProducto);
-            precioP=itemView.findViewById(R.id.precioProducto);
-            fotoP=itemView.findViewById(R.id.fotoProducto);
+            nombreP = itemView.findViewById(R.id.nombreProducto);
+            precioP = itemView.findViewById(R.id.precioProducto);
+            fotoP = itemView.findViewById(R.id.fotoProducto);
 
         }
     }
