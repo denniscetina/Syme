@@ -19,11 +19,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Login extends AppCompatActivity {
-    private static final String STRING_PREFERENCES_EMAIL = "emailGuardado";
-    private static final String STRING_PREFERENCES_CONTRA = "emailGuardado";
+    private DatabaseReference mDataBase;
     Button registrarse, iniciar;
     TextInputEditText mEmail, mContrasenia;
     private String email = "", contrasenia = "";
@@ -42,7 +46,7 @@ public class Login extends AppCompatActivity {
         mContrasenia = findViewById(R.id.mContraEdit);
 
         mAuth = FirebaseAuth.getInstance();
-
+        mDataBase = FirebaseDatabase.getInstance().getReference();
         iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,8 +86,10 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+                    obtenerUsuariop();
                     finish();
 
                 } else {
@@ -101,10 +107,31 @@ public class Login extends AppCompatActivity {
         if (mAuth.getCurrentUser() != null) {
 
             startActivity(new Intent(Login.this, MainActivity.class));
+            obtenerUsuariop();
             finish();
 
         }
 
 
+    }
+    public void obtenerUsuariop(){
+        String id= mAuth.getCurrentUser().getUid();
+        mDataBase.child("Usuarios").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String name = snapshot.child("Nombre").getValue().toString();
+                    String correo = snapshot.child("Correo").getValue().toString();
+                    Toast.makeText(Login.this, name+"   "+correo, Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
