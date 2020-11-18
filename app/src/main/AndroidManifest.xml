@@ -9,12 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Syme">
+        <activity android:name=".Mantenimiento"></activity>
         <activity
             android:name=".Registrarse"
-            android:theme="@style/Theme.Syme.NoActionBar">
-
-    </activity>
-
+            android:theme="@style/Theme.Syme.NoActionBar"></activity>
         <activity
             android:name=".Login"
             android:theme="@style/Theme.Syme.NoActionBar">
@@ -23,15 +21,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Syme.NoActionBar" >
-
-    </activity>
-        <!-- [START firebase_service] -->
+            android:theme="@style/Theme.Syme.NoActionBar"></activity> <!-- [START firebase_service] -->
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
@@ -39,10 +33,9 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <!-- [END firebase_service] -->
     </application>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 </manifest>

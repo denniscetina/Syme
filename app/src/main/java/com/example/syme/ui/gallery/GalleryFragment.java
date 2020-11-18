@@ -1,5 +1,6 @@
 package com.example.syme.ui.gallery;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.syme.Mantenimiento;
 import com.example.syme.R;
 
 public class GalleryFragment extends Fragment {
@@ -28,7 +30,7 @@ public class GalleryFragment extends Fragment {
         btnmantenimiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getContext(), Mantenimiento.class));
             }
         });
         final TextView textView = root.findViewById(R.id.text_gallery);
