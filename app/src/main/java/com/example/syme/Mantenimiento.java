@@ -26,6 +26,7 @@ public class Mantenimiento extends AppCompatActivity {
     }
 
     private void llenarPaquetes() {
+        listaPaquetes.add(new Paquetes("MANTENIMIENTO DE COMPUTADORAS","",""));
         listaPaquetes.add(new Paquetes("Paquete 1:","Configuración inicial que incluye:"
                 ,"•\tInstalación de antivirus\n" +
                 "•\tInstalación de la paquetería office 2013-2019\n" +
@@ -39,5 +40,13 @@ public class Mantenimiento extends AppCompatActivity {
                 ,"•\tLimpieza interna del equipo de computo\n" +
                 "•\tRespaldo por medio del disco duro\n" +
                 "•\tInstalación del paquete 2\n"));
+        listaPaquetes.add(new Paquetes("MANTENIMIENTO DE IMPRESORAS","",""));
+
+        listaPaquetes.add(new Paquetes("","","Limpieza en general"));
+        listaPaquetes.add(new Paquetes("","","Limpieza de almohadillas"));
+        listaPaquetes.add(new Paquetes("","","Limpieza de cabezales "));
+        listaPaquetes.add(new Paquetes("","","Rellenado de tintas (Cartuchos)"));
+        listaPaquetes.add(new Paquetes("","","Rellenado de tintas (Impresoras)"));
+        listaPaquetes.add(new Paquetes("","","Purgado de impresoras"));
     }
 }
