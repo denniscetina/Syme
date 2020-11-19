@@ -27,9 +27,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Descripcion del paquete"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimary"
-        android:layout_marginBottom="20dp"/>
 </LinearLayout>

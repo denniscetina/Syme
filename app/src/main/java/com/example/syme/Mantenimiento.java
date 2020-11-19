@@ -27,16 +27,16 @@ public class Mantenimiento extends AppCompatActivity {
 
     private void llenarPaquetes() {
         listaPaquetes.add(new Paquetes("MANTENIMIENTO DE COMPUTADORAS","",""));
-        listaPaquetes.add(new Paquetes("Paquete 1:","Configuración inicial que incluye:"
+        listaPaquetes.add(new Paquetes("Paquete 1: ","Configuración inicial que incluye:"
                 ,"•\tInstalación de antivirus\n" +
                 "•\tInstalación de la paquetería office 2013-2019\n" +
                 "•\tInstalación de programas y complementos básicos \n"));
 
-        listaPaquetes.add(new Paquetes("Paquete 2:","Mantenimiento preventivo, que contiene:"
+        listaPaquetes.add(new Paquetes("Paquete 2: ","Mantenimiento preventivo, que contiene:"
                 ,"•\tRespaldo de información \n" +
                 "•\tInstalación del sistema operativo (Win7-Win10)\n" +
                 "•\tInstalación del paquete 1\n"));
-        listaPaquetes.add(new Paquetes("Paquete 3","Mantenimiento correctivo, que contiene:"
+        listaPaquetes.add(new Paquetes("Paquete 3: ","Mantenimiento correctivo, que contiene:"
                 ,"•\tLimpieza interna del equipo de computo\n" +
                 "•\tRespaldo por medio del disco duro\n" +
                 "•\tInstalación del paquete 2\n"));
