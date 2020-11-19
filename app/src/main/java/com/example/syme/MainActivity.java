@@ -50,16 +50,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Cerrando sesión....", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                mAuth.signOut();
-                startActivity(new Intent(MainActivity.this, Login.class));
-                finish();
+                startActivity(new Intent(MainActivity.this,EstadoDispositivos.class));
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        //XD Derian16
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)

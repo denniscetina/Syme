@@ -44,7 +44,7 @@ public class Registrarse extends AppCompatActivity {
     String usuario = "";
     String contra = "";
     String contraC = "";
-    String token = "";
+    String dispositivos = "false";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +113,7 @@ public class Registrarse extends AppCompatActivity {
                     map.put("Telefono",telefono);
                     map.put("Correo",usuario);
                     map.put("Contraseña",contra);
+                    map.put("Dispositivos",dispositivos);
                     String id = mAuth.getCurrentUser().getUid();
                     mDataBase.child("Usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
