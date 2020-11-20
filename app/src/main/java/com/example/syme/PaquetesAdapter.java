@@ -17,6 +17,9 @@ public class PaquetesAdapter extends RecyclerView.Adapter<PaquetesAdapter.ViewHo
         this.listaPaquetes = listaPaquetes;
     }
 
+    public PaquetesAdapter() {
+    }
+
     @NonNull
     @Override
     public ViewHolderPaquetes onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
