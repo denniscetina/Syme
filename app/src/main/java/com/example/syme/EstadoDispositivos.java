@@ -55,9 +55,7 @@ public class EstadoDispositivos extends AppCompatActivity {
                 }else {
                     if (sinDes.getVisibility()==View.VISIBLE){
                         sinDes.setVisibility(View.GONE);
-                        recyclerView.setVisibility(View.VISIBLE);
                     }
-
                     listarDispositivos();
                 }
             }
