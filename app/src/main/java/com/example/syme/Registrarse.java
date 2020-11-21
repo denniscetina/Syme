@@ -12,13 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -45,6 +38,7 @@ public class Registrarse extends AppCompatActivity {
     String contra = "";
     String contraC = "";
     String dispositivos = "false";
+    String tokenxd = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +53,10 @@ public class Registrarse extends AppCompatActivity {
         tvusuario=findViewById(R.id.UsuarioR);
         tvcontra=findViewById(R.id.ContraseñaR);
         tvcontraC=findViewById(R.id.ContraseñaC);
-        registrar=findViewById(R.id.Registrar);
+        registrar=findViewById(R.id.restablecerBoton);
         mAuth = FirebaseAuth.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference();
-
+        Toast.makeText(Registrarse.this,"XDXD",Toast.LENGTH_SHORT).show();
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,7 +93,23 @@ public class Registrarse extends AppCompatActivity {
             enviarUsuario();
         }
     }
+    private void getToken() {
 
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (task.isSuccessful()) {
+                            // Get new FCM registration token
+                            //Tokend = task.getResult();
+                            // Log and toast
+                            //Log.d("Impresion", token);
+                        }else {
+                            Log.w("cd", "Fetching FCM registration token failed", task.getException());
+                        }
+                    }
+                });
+    }
     private void enviarUsuario() {
         mAuth.createUserWithEmailAndPassword(usuario,contra).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -114,6 +124,7 @@ public class Registrarse extends AppCompatActivity {
                     map.put("Correo",usuario);
                     map.put("Contraseña",contra);
                     map.put("Dispositivos",dispositivos);
+                    //map.put("Token",getToken());
                     String id = mAuth.getCurrentUser().getUid();
                     mDataBase.child("Usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

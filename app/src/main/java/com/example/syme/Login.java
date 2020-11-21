@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,13 +20,20 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Login extends AppCompatActivity {
     Button registrarse,iniciar;
+    private DatabaseReference mDataBase;
     TextInputEditText mEmail, mContrasenia;
     private String email="",contrasenia="";
     private FirebaseAuth mAuth;
+    private TextView olvidoContra;
     Switch mantenerSesion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +44,9 @@ public class Login extends AppCompatActivity {
         mEmail=findViewById(R.id.mEmailEdit);
         mContrasenia=findViewById(R.id.mContraEdit);
         registrarse=findViewById(R.id.registrarseL);
+        olvidoContra = (TextView)findViewById(R.id.textViewReset);
         mAuth = FirebaseAuth.getInstance();
-
+        mDataBase = FirebaseDatabase.getInstance().getReference();
         registrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +69,13 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        olvidoContra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this,ResetearContrasenia.class));
+            }
+        });
+
     }
 
     private void loginUser() {
@@ -70,6 +86,7 @@ public class Login extends AppCompatActivity {
          if(task.isSuccessful()){
              Intent intent = new Intent(getApplicationContext(),MainActivity.class);
              startActivity(intent);
+             obtenerUsuariop();
              finish();
 
          }
@@ -86,7 +103,28 @@ public class Login extends AppCompatActivity {
         super.onStart();
         if(mAuth.getCurrentUser() != null){
             startActivity(new Intent(Login.this,MainActivity.class));
+            obtenerUsuariop();
             finish();
         }
+    }
+    public void obtenerUsuariop() {
+        String id = mAuth.getCurrentUser().getUid();
+        mDataBase.child("Usuarios").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String name = snapshot.child("Nombre").getValue().toString();
+                    String correo = snapshot.child("Correo").getValue().toString();
+                    Toast.makeText(Login.this, name + "   " + correo, Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
