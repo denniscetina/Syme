@@ -81,6 +81,7 @@
         android:layout_marginTop="60dp"
         android:background="@drawable/btn"
         android:text="iniciar sesión"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,8 +1,11 @@
 package com.example.syme;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,7 +32,7 @@ public class Registrarse extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDataBase;
     ProgressDialog progressDialog;
-
+    SharedPreferences propiedades;
     String nombre = "";
     String direccion = "";
     String ubicacion = "";
@@ -56,7 +59,9 @@ public class Registrarse extends AppCompatActivity {
         registrar=findViewById(R.id.restablecerBoton);
         mAuth = FirebaseAuth.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference();
-        Toast.makeText(Registrarse.this,"XDXD",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(Registrarse.this,"XDXD",Toast.LENGTH_SHORT).show();
+
+
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,13 +73,21 @@ public class Registrarse extends AppCompatActivity {
                 contra=tvcontra.getText().toString();
                 contraC=tvcontraC.getText().toString();
                 Registrar();
+                propiedades = getPreferences(Context.MODE_PRIVATE);
             }
         });
+
+
+
     }
 
     private void Registrar() {
+
+        propiedades = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String usernames = propiedades.getString("name", "NA");
         if (nombre.isEmpty()){
             tvnombre.setError("Todos los datos son obligatorios: Ingrese su nombre completo");
+            Toast.makeText(Registrarse.this,usernames,Toast.LENGTH_SHORT).show();
         }else if (direccion.isEmpty()){
             tvdireccion.setError("Todos los datos son obligatorios: Ingrese su dirección");
         }else if (ubicacion.isEmpty()){
@@ -95,22 +108,27 @@ public class Registrarse extends AppCompatActivity {
     }
     private void getToken() {
 
+
+
+    }
+
+    private void enviarUsuario() {
+        final String[] token = new String[1];
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
+
                         if (task.isSuccessful()) {
-                            // Get new FCM registration token
-                            //Tokend = task.getResult();
-                            // Log and toast
-                            //Log.d("Impresion", token);
+                            propiedades = getPreferences(Context.MODE_PRIVATE);
+                            token[0] = task.getResult();
+                            Toast.makeText(Registrarse.this, token[0],Toast.LENGTH_SHORT).show();
+
                         }else {
-                            Log.w("cd", "Fetching FCM registration token failed", task.getException());
+                            Toast.makeText(Registrarse.this,"No se pudo registrar su token contacte con un adminitrador",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-    }
-    private void enviarUsuario() {
         mAuth.createUserWithEmailAndPassword(usuario,contra).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -124,7 +142,7 @@ public class Registrarse extends AppCompatActivity {
                     map.put("Correo",usuario);
                     map.put("Contraseña",contra);
                     map.put("Dispositivos",dispositivos);
-                    //map.put("Token",getToken());
+                    map.put("Token", token[0]);
                     String id = mAuth.getCurrentUser().getUid();
                     mDataBase.child("Usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -142,4 +160,5 @@ public class Registrarse extends AppCompatActivity {
             }
         });
     }
+
 }

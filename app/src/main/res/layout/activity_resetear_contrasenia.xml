@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="184dp"
         android:background="@drawable/btn"
+        android:textColor="@color/colorPrimary"
         android:text="Restablecer contraseña"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
