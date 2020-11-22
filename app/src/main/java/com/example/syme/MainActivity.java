@@ -1,5 +1,6 @@
 package com.example.syme;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,7 +50,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Snackbar.make(view, "Cerrando sesión....", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                FirebaseMessaging.getInstance().getToken()
+                        .addOnCompleteListener(new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(@NonNull Task<String> task) {
+                                if (task.isSuccessful()) {
+
+                                    String token = task.getResult();
+                                    Log.d("Impresion", token);
+                                    return;
+                                }
+
+                                // Get new FCM registration token
+
+
+                                // Log and toast
+
+
+                            }
+                        });
                 startActivity(new Intent(MainActivity.this,EstadoDispositivos.class));
+
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -64,35 +85,23 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        //enviarToken();
+        enviarToken();
     }
 
     private void enviarToken() {
+        final String[] token = new String[1];
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
-                        if (task.isSuccessful()) {
-                            // Get new FCM registration token
-                            String token = task.getResult();
 
-                            // Log and toast
-                            Log.d("Impresion", token);
-                            Map<String, Object> map = new HashMap<>();
-                            map.put("Token",token);
+                        if (task.isSuccessful()) {
+                            token[0] = task.getResult();
                             String id = mAuth.getCurrentUser().getUid();
-                            mDataBase.child("Usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task2) {
-                                    if (task2.isSuccessful()){
-                                        Toast.makeText(MainActivity.this,"Se registro el token",Toast.LENGTH_SHORT).show();
-                                    }else{
-                                        Toast.makeText(MainActivity.this,"No se pudo registrar el token",Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        }else {
-                            Log.w("cd", "Fetching FCM registration token failed", task.getException());
+                            mAuth = FirebaseAuth.getInstance();
+                            mDataBase = FirebaseDatabase.getInstance().getReference();
+                            mDataBase.child("Usuarios").child(id).child("Token").setValue(token[0]);
+
                         }
                     }
                 });
