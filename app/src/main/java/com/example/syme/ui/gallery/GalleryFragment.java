@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.syme.Cyber;
 import com.example.syme.Mantenimiento;
 import com.example.syme.R;
 import com.example.syme.Ventas;
@@ -21,12 +22,19 @@ import com.example.syme.Ventas;
 public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
-    private Button btnmantenimiento,btnVentas;
+    private Button btnmantenimiento,btnVentas,btnCyber;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel = new ViewModelProvider(this).get(GalleryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        btnCyber = root.findViewById(R.id.ciber);
+        btnCyber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), Cyber.class));
+            }
+        });
         btnVentas = root.findViewById(R.id.ventas);
         btnVentas.setOnClickListener(new View.OnClickListener() {
             @Override

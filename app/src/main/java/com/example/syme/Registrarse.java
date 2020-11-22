@@ -113,49 +113,52 @@ public class Registrarse extends AppCompatActivity {
     }
 
     private void enviarUsuario() {
-        final String[] token = new String[1];
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
 
-                        if (task.isSuccessful()) {
-                            propiedades = getPreferences(Context.MODE_PRIVATE);
-                            token[0] = task.getResult();
-                            Toast.makeText(Registrarse.this, token[0],Toast.LENGTH_SHORT).show();
-
-                        }else {
-                            Toast.makeText(Registrarse.this,"No se pudo registrar su token contacte con un adminitrador",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
         mAuth.createUserWithEmailAndPassword(usuario,contra).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    progressDialog.show();
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("Nombre",nombre);
-                    map.put("Dirección",direccion);
-                    map.put("Ubicación",ubicacion);
-                    map.put("Telefono",telefono);
-                    map.put("Correo",usuario);
-                    map.put("Contraseña",contra);
-                    map.put("Dispositivos",dispositivos);
-                    map.put("Token", token[0]);
-                    String id = mAuth.getCurrentUser().getUid();
-                    mDataBase.child("Usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task2) {
-                            if (task2.isSuccessful()){
-                                progressDialog.dismiss();
-                                startActivity(new Intent(Registrarse.this,Login.class));
-                                finish();
-                            }else{
-                                Toast.makeText(Registrarse.this,"No se pudo registrar el usuario",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                    final String[] token = new String[1];
+                    FirebaseMessaging.getInstance().getToken()
+                            .addOnCompleteListener(new OnCompleteListener<String>() {
+                                @Override
+                                public void onComplete(@NonNull Task<String> task) {
+
+                                    if (task.isSuccessful()) {
+                                        propiedades = getPreferences(Context.MODE_PRIVATE);
+                                        token[0] = task.getResult();
+                                        Toast.makeText(Registrarse.this, token[0],Toast.LENGTH_SHORT).show();
+
+                                        progressDialog.show();
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("Nombre",nombre);
+                                        map.put("Dirección",direccion);
+                                        map.put("Ubicación",ubicacion);
+                                        map.put("Telefono",telefono);
+                                        map.put("Correo",usuario);
+                                        map.put("Contraseña",contra);
+                                        map.put("Dispositivos",dispositivos);
+                                        map.put("Token", token[0]);
+                                        String id = mAuth.getCurrentUser().getUid();
+                                        mDataBase.child("Usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task2) {
+                                                if (task2.isSuccessful()){
+                                                    progressDialog.dismiss();
+                                                    startActivity(new Intent(Registrarse.this,Login.class));
+                                                    finish();
+                                                }else{
+                                                    Toast.makeText(Registrarse.this,"No se pudo registrar el usuario",Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+
+                                    }else {
+                                        Toast.makeText(Registrarse.this,"No se pudo registrar su token contacte con un adminitrador",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
                 }
             }
         });
