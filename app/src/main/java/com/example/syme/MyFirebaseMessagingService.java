@@ -38,13 +38,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // En este método recibimos el mensaje
         Intent notificationIntent;
-        if(Helper.isAppRunning(MyFirebaseMessagingService.this, "com.example.syme")){
-            // Qué hacemos si la aplicación está en primer plano
-            notificationIntent = new Intent(this, ResetearContrasenia.class);
-        }else{
-            // Qué hacemos si la aplicación está en background
+
+
             notificationIntent = new Intent(this, EstadoDispositivos.class);
-        }
+
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
@@ -57,9 +54,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Creamos la notificación en si
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_laptop)  //a resource for your custom small icon
-                .setContentTitle(remoteMessage.getData().get("title")) //the "title" value you sent in your notification
-                .setContentText(remoteMessage.getData().get("message")) //ditto
+                .setSmallIcon(R.drawable.logoo,855)  //a resource for your custom small icon
+                .setContentTitle(remoteMessage.getNotification().getTitle()) //the "title" value you sent in your notification
+                .setContentText(remoteMessage.getNotification().getBody()) //ditto
                 .setAutoCancel(true)  //dismisses the notification on click
                 .setContentIntent(pendingIntent)
                 .setSound(defaultSoundUri);
@@ -69,7 +66,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setupChannels(){
-        CharSequence adminChannelName = "Hola";
+        CharSequence adminChannelName = "Defualt";
         String adminChannelDescription = "Este es mi mensaje";
         NotificationChannel adminChannel;
         adminChannel = new NotificationChannel(ADMIN_CHANNEL_ID, adminChannelName, NotificationManager.IMPORTANCE_LOW);
