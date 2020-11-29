@@ -31,6 +31,7 @@ public class Login extends AppCompatActivity {
     Button registrarse,iniciar;
     private DatabaseReference mDataBase;
     TextInputEditText mEmail, mContrasenia;
+    //
     private String email="",contrasenia="";
     private FirebaseAuth mAuth;
     private TextView olvidoContra;

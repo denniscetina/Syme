@@ -12,20 +12,15 @@ import android.net.Uri;
 import android.os.Build;
 
 
-import android.util.Log;
-
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Random;
-
-import static android.content.ContentValues.TAG;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -54,7 +49,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Creamos la notificación en si
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
-                .setSmallIcon(R.drawable.logoo,855)  //a resource for your custom small icon
+                .setSmallIcon(R.drawable.logo2,855)  //a resource for your custom small icon
                 .setContentTitle(remoteMessage.getNotification().getTitle()) //the "title" value you sent in your notification
                 .setContentText(remoteMessage.getNotification().getBody()) //ditto
                 .setAutoCancel(true)  //dismisses the notification on click
