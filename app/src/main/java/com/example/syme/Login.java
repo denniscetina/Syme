@@ -57,7 +57,7 @@ public class Login extends AppCompatActivity {
         iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // loginUser();
+
                 email= mEmail.getText().toString();
                 contrasenia= mContrasenia.getText().toString();
                 if(email.isEmpty()){
@@ -92,7 +92,7 @@ public class Login extends AppCompatActivity {
 
          }
          else{
-             Toast.makeText(Login.this,"No se pudo inicar sesión comprueba los datos.",Toast.LENGTH_LONG).show();
+             Toast.makeText(Login.this,"No se pudo inicar sesión compruebe los datos.",Toast.LENGTH_LONG).show();
          }
         }
     });
