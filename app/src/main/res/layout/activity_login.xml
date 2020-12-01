@@ -19,14 +19,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="308dp"
-        android:layout_height="214dp"
+        android:layout_width="356dp"
+        android:layout_height="264dp"
         android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logomenu" />
+        app:srcCompat="@drawable/logoo" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
