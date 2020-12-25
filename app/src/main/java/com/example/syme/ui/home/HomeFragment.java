@@ -1,16 +1,23 @@
 package com.example.syme.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,13 +33,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     private HomeViewModel homeViewModel;
     private RecyclerView recyclerViewProductos;
     DatabaseReference reference;
-    List<Producto> productos;
+    ArrayList<Producto> productos;
     ProductoAdapter adapter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -45,7 +53,7 @@ public class HomeFragment extends Fragment {
 
         reference = FirebaseDatabase.getInstance().getReference().child("Productos");
 
-        recyclerViewProductos.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewProductos.setLayoutManager(new GridLayoutManager(getActivity(),2));
         productos = new ArrayList<Producto>();
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -75,5 +83,55 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        getActivity().getMenuInflater().inflate(R.menu.main,menu);
+        MenuItem item =menu.findItem(R.id.buscar);
+        SearchView searchbtn =(SearchView) MenuItemCompat.getActionView(item);
+        searchbtn.setOnQueryTextListener(this);
+        MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
 
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                adapter.setFilter(productos);
+                return true;
+            }
+        });
+        return true;
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        try {
+            ArrayList<Producto>listaFiltra=filter(productos,s);
+            adapter.setFilter(listaFiltra);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    private ArrayList<Producto> filter(ArrayList<Producto> producto,String texto){
+        ArrayList<Producto>listaFiltrada=null;
+        try {
+            texto=texto.toLowerCase();
+            for (Producto pdt:producto){
+                String pdt2=pdt.getNombreProductos().toLowerCase();
+                if (pdt2.contains(texto)){
+                    listaFiltrada.add(pdt);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return listaFiltrada;
+    }
 }

@@ -106,11 +106,6 @@ public class Registrarse extends AppCompatActivity {
             enviarUsuario();
         }
     }
-    private void getToken() {
-
-
-
-    }
 
     private void enviarUsuario() {
 
@@ -128,7 +123,7 @@ public class Registrarse extends AppCompatActivity {
                                         propiedades = getPreferences(Context.MODE_PRIVATE);
                                         token[0] = task.getResult();
                                         Toast.makeText(Registrarse.this, token[0],Toast.LENGTH_SHORT).show();
-
+                                        String id = mAuth.getCurrentUser().getUid();
                                         progressDialog.show();
                                         Map<String, Object> map = new HashMap<>();
                                         map.put("Nombre",nombre);
@@ -139,7 +134,10 @@ public class Registrarse extends AppCompatActivity {
                                         map.put("Contraseña",contra);
                                         map.put("Dispositivos",dispositivos);
                                         map.put("Token", token[0]);
-                                        String id = mAuth.getCurrentUser().getUid();
+                                        map.put("Tipo","Cliente");
+                                        map.put("Id",id);
+
+
                                         mDataBase.child("Usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task2) {

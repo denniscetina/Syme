@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -19,10 +20,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
-    List<Producto> productos;
+    ArrayList<Producto> productos;
     Context context;
 
-    public ProductoAdapter(Context context, List<Producto> productos) {
+    public ProductoAdapter(Context context, ArrayList<Producto> productos) {
         this.productos = productos;
         this.context = context;
     }
@@ -60,5 +61,10 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             fotoP = itemView.findViewById(R.id.fotoProducto);
 
         }
+    }
+    public void setFilter(ArrayList<Producto> productos){
+        this.productos=new ArrayList<>();
+        this.productos.addAll(productos);
+        notifyDataSetChanged();
     }
 }

@@ -26,9 +26,9 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="right|bottom"
         app:backgroundTint="@color/black"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_baseline_email_24"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
