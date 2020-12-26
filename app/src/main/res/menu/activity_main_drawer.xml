@@ -8,6 +8,10 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_inicio"
             android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_mantenimiento"
+            android:title="Añadir un dispositivo"
+            android:icon="@drawable/ic_celular"/>
         <item android:id="@+id/nav_prod"
             android:title="Añadir Productos"
             android:icon="@drawable/ic_prod"
@@ -16,9 +20,14 @@
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_soporte"
             android:title="@string/menu_gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_cerrar_sesion"
-            android:title="@string/menu_slideshow" />
+
     </group>
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_slideshow"
+                android:icon="@drawable/ic_cerrar_sesion"
+                android:title="@string/menu_slideshow" />
+        </menu>
+    </item>
 </menu>

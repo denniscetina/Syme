@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_nav_home_to_productosFragment"
             app:destination="@id/nav_prod" />
+        <action
+            android:id="@+id/action_nav_home_to_mantenimientoFragment"
+            app:destination="@id/nav_mantenimiento" />
     </fragment>
 
     <fragment
@@ -39,4 +42,9 @@
         android:name="com.example.syme.ui.productos.ProductosFragment"
         android:label="fragment_productos"
         tools:layout="@layout/fragment_productos" />
+    <fragment
+        android:id="@+id/nav_mantenimiento"
+        android:name="com.example.syme.ui.mantenimiento.mantenimientoFragment"
+        android:label="fragment_mantenimiento"
+        tools:layout="@layout/fragment_mantenimiento" />
 </navigation>
