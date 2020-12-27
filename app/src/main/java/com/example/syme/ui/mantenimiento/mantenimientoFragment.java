@@ -60,21 +60,6 @@ public class mantenimientoFragment extends Fragment {
         est = root.findViewById(R.id.estado);
         tip = root.findViewById(R.id.tipo);
         id = mAuth.getCurrentUser().getUid();
-        mDataBase.child("Mantenimiento").child(id).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                hijos = (int) snapshot.getChildrenCount();
-                for (int i = 0; contador < hijos; i++) {
-                    contador++;
-                }
-                numero = String.valueOf(contador);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -97,6 +82,7 @@ public class mantenimientoFragment extends Fragment {
             }
         });
         mostrarDatosSpinner();
+        conteo();
         return root;
     }
 
@@ -116,6 +102,29 @@ public class mantenimientoFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
+
+    private void conteo(){
+        db.collection("Usuarios").whereEqualTo("Nombre",nombreSeleccionado).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                mDataBase.child("Mantenimiento").child(idCliente).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        hijos = (int) snapshot.getChildrenCount();
+                        for (int i = 0; contador < hijos; i++) {
+                            contador++;
+                        }
+                        numero = String.valueOf(contador);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
     }
@@ -141,7 +150,7 @@ public class mantenimientoFragment extends Fragment {
                         map.put("Estado",estado);
                         map.put("Tipo",tipo);
 
-//Aqui se crea el nuevo dispositivo
+                        //Aqui se crea el nuevo dispositivo
                         mDataBase.child("Mantenimiento").child(idCliente).child("Dispositivo"+numero).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
