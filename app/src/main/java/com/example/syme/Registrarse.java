@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +13,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.firebase.messaging.FirebaseMessagingService;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,7 +32,8 @@ public class Registrarse extends AppCompatActivity {
     EditText tvnombre,tvdireccion,tvubicacion,tvtelefono,tvusuario,tvcontra,tvcontraC;
     Button registrar;
     FirebaseAuth mAuth;
-    DatabaseReference mDataBase;
+    FirebaseFirestore db;
+    private DatabaseReference mDataBase;
     ProgressDialog progressDialog;
     SharedPreferences propiedades;
     String nombre = "";
@@ -56,8 +59,9 @@ public class Registrarse extends AppCompatActivity {
         tvusuario=findViewById(R.id.UsuarioR);
         tvcontra=findViewById(R.id.ContraseñaR);
         tvcontraC=findViewById(R.id.ContraseñaC);
-        registrar=findViewById(R.id.restablecerBoton);
+        registrar=findViewById(R.id.registrarR);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference();
         //Toast.makeText(Registrarse.this,"XDXD",Toast.LENGTH_SHORT).show();
 
@@ -137,14 +141,19 @@ public class Registrarse extends AppCompatActivity {
                                         map.put("Tipo","Cliente");
                                         map.put("Id",id);
 
-
+                                        db.collection("Usuarios").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                progressDialog.dismiss();
+                                                startActivity(new Intent(Registrarse.this,Login.class));
+                                                finish();
+                                            }
+                                        });
                                         mDataBase.child("Usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task2) {
                                                 if (task2.isSuccessful()){
-                                                    progressDialog.dismiss();
-                                                    startActivity(new Intent(Registrarse.this,Login.class));
-                                                    finish();
+
                                                 }else{
                                                     Toast.makeText(Registrarse.this,"No se pudo registrar el usuario",Toast.LENGTH_SHORT).show();
                                                 }

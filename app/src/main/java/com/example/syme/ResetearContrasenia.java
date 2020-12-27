@@ -30,7 +30,7 @@ public class ResetearContrasenia extends AppCompatActivity {
 
         setContentView(R.layout.activity_resetear_contrasenia);
         mEditEmailRe = (EditText) findViewById(R.id.mEmailRes);
-        RestablecerButton = (Button) findViewById(R.id.restablecerBoton);
+        RestablecerButton = (Button) findViewById(R.id.registrarR);
 
         RestablecerButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -61,6 +61,24 @@ public class ProductosFragment extends Fragment {
         progressDialog  = new ProgressDialog(getContext());
         mDataBase = FirebaseDatabase.getInstance().getReference();
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        mDataBase.child("Productos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                hijos = (int) snapshot.getChildrenCount();
+
+                for (int i = 0; contador < hijos; i++) {
+                    contador++;
+                }
+                numero = String.valueOf(contador);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         subir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,24 +133,7 @@ public class ProductosFragment extends Fragment {
             Toast.makeText(getContext(),"Por favor seleccione una imagen del producto",Toast.LENGTH_SHORT).show();
         }else {
 
-            mDataBase.child("Productos").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    hijos = (int) snapshot.getChildrenCount();
 
-                    for (int i = 0; contador < hijos; i++) {
-                        contador++;
-                    }
-                    numero = String.valueOf(contador);
-
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
             Log.e("Datos ", numero);
             progressDialog.show();
             progressDialog.setTitle("Subiendo...");
