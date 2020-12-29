@@ -30,7 +30,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class Login extends AppCompatActivity {
     Button registrarse,iniciar;
     private DatabaseReference mDataBase;
-    TextInputEditText mEmail, mContrasenia;
+    EditText mEmail, mContrasenia;
     //
     private String email="",contrasenia="";
     private FirebaseAuth mAuth;
