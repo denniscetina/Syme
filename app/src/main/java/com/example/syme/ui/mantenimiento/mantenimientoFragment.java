@@ -158,6 +158,15 @@ public class mantenimientoFragment extends Fragment {
                                     est.setText("");
                                     tip.setText("");
                                     Log.e("Datos ", numero);
+
+                                    Map<String, Object> map1 = new HashMap<>();
+                                    map1.put("Dispositivos","True");
+                                    mDataBase.child("Usuarios").child(idCliente).updateChildren(map1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                        }
+                                    });
                                 }else {
                                     Toast.makeText(getContext(),"Hubo un error al intentar subir los datos",Toast.LENGTH_LONG).show();
                                 }

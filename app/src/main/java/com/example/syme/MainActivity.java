@@ -97,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
         mDataBase.child("Usuarios").child(id).child("Tipo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String dato = snapshot.getValue().toString();
+                String dato="";
+                dato = snapshot.getValue().toString();
                if (dato.equalsIgnoreCase("Cliente")){
                    nav_Menu = navigationView.getMenu();
                    nav_Menu.findItem(R.id.nav_prod).setVisible(false);

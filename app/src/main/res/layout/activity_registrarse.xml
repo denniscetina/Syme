@@ -9,7 +9,7 @@
     android:layout_marginLeft="10dp"
     tools:context=".Registrarse">
     <ScrollView
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -20,6 +20,7 @@
                 android:id="@+id/Nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName"
                 android:drawableLeft="@drawable/ic_usuario"
                 android:hint="Nombre completo"/>
 
@@ -27,6 +28,7 @@
                 android:id="@+id/Direccion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
                 android:drawableLeft="@drawable/ic_ubicacion"
                 android:hint="Dirección"/>
 
@@ -34,6 +36,7 @@
                 android:id="@+id/Ubicacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
                 android:drawableLeft="@drawable/ic_ubicacion"
                 android:hint="Ubicación"/>
 
